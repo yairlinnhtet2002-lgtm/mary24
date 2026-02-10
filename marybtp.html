@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mary, 네가 미안해🥺 이 사과를 받고 용서 해줘🍎</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6f2;
+            color: #d63384;
+            padding:100px;
+        }
+        h1 {
+            font-size: 3em;
+        }
+        button {
+            font-size: 2em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #yesBtn {
+            background-color: #61c6f1;
+            color: white;
+        }
+        #noBtn {
+            background-color: #ababab;
+            color: #333;
+        }
+        #noBtn:hover {
+            background-color: #aaa;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #dcdcdc;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+            color: #d63384;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        #noMessage {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: hsl(234, 88%, 40%);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mary, 네가 미안해🥺 이 사과를 받아줘🍎</h1>
+    <button id="yesBtn">Yes!</button>
+    <button id="noBtn">No</button>
+    <p id="noMessage"></p>
+
+    <!-- Modal for the letter -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1> 용서 해줘서 고마워🫶! 밥 사 줄게. 사진도 예쁘게 찍어 줄게.😁
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const modal = document.getElementById('myModal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const noMessage = document.getElementById('noMessage');
+
+        // Array of messages to show in series when No is clicked
+        const messages = [
+            "화 풀어 줘 💕",
+            "진짜 미안해🥺",
+            "다음에 그렇게 안 할게🙏",
+            "Yes 해 줘 🥹",
+            "제발 용서해줘 😭",
+            "두쫀쿠면 화 풀거야?🍫",
+            "아나면 어묵?🍢",
+            "사과 받아줘🍎🙏",
+
+        ];
+
+        let messageIndex = 0;
+
+        // Yes button: Open the modal popup with the letter
+        yesBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
+
+        // Close the modal when the close button is clicked
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close the modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Combined No button event listener for scaling and message series
+        let s = 1;
+        let scale = 1;
+        noBtn.addEventListener('click', () => {
+            // Scale up the Yes button
+            s += 0.1;
+            yesBtn.style.transform = `scale(${s})`;
+
+            // Scale down the No button
+            scale -= 0.1;
+            noBtn.style.transform = `scale(${scale})`;
+
+            // Show the next message in the series
+            noMessage.textContent = messages[messageIndex % messages.length];
+            noMessage.style.display = 'block';
+            messageIndex++;
+        });
+    </script>
+</body>
+</html>
